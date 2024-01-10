@@ -3,6 +3,7 @@ const db = require("./connection");
 const swaggerUi = require("swagger-ui-express");
 const swaggerJSDoc = require("swagger-jsdoc");
 const router = express.Router();
+const cors = require("cors");
 
 const options = {
     definition: {
@@ -18,6 +19,7 @@ const app = express();
 
 app.use(express.json());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(SwaggerSpec));
+app.use(cors());
 
 //CREATE
 /**
@@ -71,20 +73,21 @@ router.post('/cr', async (req, res)=> {
  *           type: integer
  *     responses:
  *       200:
-<<<<<<< HEAD
  *         description: Éxito, devuelve la información del usuario.
  *       500:
  *         description: Error al intentar obtener la información del usuario.
+*/
 router.get('/re/:id', async (req, res)=> {  
         const { id } = req.params;
         await db.query('SELECT * FROM Jugadores WHERE id = ?', [id], (err, results) => {
             if (err) {
-                res.status(500).json({error:'Hubo un error al traer el jugador especificado.', details:e.message})    
+                res.status(500).json({error:'Hubo un error al traer el jugador especificado.', details:err.message})    
             } else {
                 res.status(200).json(results);
             }
         });
 });
+
 
 /**
  * @swagger
@@ -144,7 +147,7 @@ router.put('/up/:id', async (req, res)=> {
     const { id } = req.params;
     const { nombre, numero } = req.body;
 
-    await db.query('UPDATE Jugadores SET nombre = ?, numero = ?', [nombre, numero], (err, results) => {
+    await db.query('UPDATE Jugadores SET nombre = ?, numero = ? WHERE id = ?', [nombre, numero, id], (err, results) => {
         if(err) {
             res.status(500).json({error:`No se pudo actualizar el jugador ${id}.`, details:err.message})    
         } else {
