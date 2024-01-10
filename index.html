@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consumo de API's en FrontEnd</title>
+</head>
+<body>
+    <h1>CRUD de jugadores de la selección Argentina.</h1>
+    <form id="crudForm">
+        <label for="nombre">Nombre:</label>
+        <input type="text" name="nombre" id="nombre" required>
+
+        <label for="numero">Numero:</label>
+        <input type="number" name="numero" id="numero" required>
+
+        <label for="id">Id:</label>
+        <input type="number" name="id" id="id">
+
+        <button type="button" onclick="agregarJugador()">CREATE</button>
+        <button type="button" onclick="mostrarJugador()">READ</button>
+        <button type="button" onclick="mostrarJugadorID()">READ por ID</button>
+        <button type="button" onclick="actualizarJugador()">UPDATE</button>
+        <button type="button" onclick="eliminarJugador()">DELETE</button>
+    </form>
+    <div id="output"></div>
+
+    <script src="fetch.js"></script>
+</body>
+</html>
